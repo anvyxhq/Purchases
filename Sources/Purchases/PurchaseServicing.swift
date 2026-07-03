@@ -30,4 +30,14 @@ public protocol PurchaseServicing: AnyObject {
     func isPurchased(_ id: String) -> Bool
 }
 
+public extension PurchaseServicing {
+    /// `true` once products have been fetched.
+    var hasLoadedProducts: Bool { !products.isEmpty }
+
+    /// A loaded product by its App Store identifier.
+    func product(for id: String) -> Product? {
+        products.first { $0.id == id }
+    }
+}
+
 extension PurchaseManager: PurchaseServicing {}

@@ -99,8 +99,8 @@ public final class PurchaseManager {
 
     private nonisolated func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
         switch result {
-        case .unverified(_, let error): throw error
-        case .verified(let safe):       return safe
+        case .unverified:         throw PurchaseError.verificationFailed
+        case .verified(let safe): return safe
         }
     }
 }
