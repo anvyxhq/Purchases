@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Purchases
+@testable import AnvyxPurchaseKit
 
 @MainActor
 final class PurchasesTests: XCTestCase {

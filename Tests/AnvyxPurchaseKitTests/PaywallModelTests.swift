@@ -7,7 +7,7 @@
 
 import XCTest
 import StoreKit
-@testable import Purchases
+@testable import AnvyxPurchaseKit
 
 @MainActor
 private final class StubPurchases: PurchaseServicing {
