@@ -3,7 +3,7 @@
 A StoreKit 2 facade for in-app purchases and subscriptions — load products, purchase, restore, and observe entitlements from SwiftUI. No third-party SDK.
 
 [![Swift](https://img.shields.io/badge/Swift-5.9+-orange.svg)](https://swift.org)
-[![Platform](https://img.shields.io/badge/iOS-26%2B-blue.svg)](https://developer.apple.com/ios/)
+[![Platform](https://img.shields.io/badge/iOS-17%2B-blue.svg)](https://developer.apple.com/ios/)
 [![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 
 ## Features
@@ -18,13 +18,13 @@ A StoreKit 2 facade for in-app purchases and subscriptions — load products, pu
 ## Installation
 
 ```swift
-.package(url: "https://github.com/anvyxhq/Purchases.git", from: "1.0.0")
+.package(url: "https://github.com/anvyxhq/Purchases.git", branch: "main")
 ```
 
 ## Usage
 
 ```swift
-import Purchases
+import AnvyxPurchaseKit
 
 @State private var purchases = PurchaseManager(productIDs: ["com.app.pro.yearly"])
 
@@ -43,7 +43,7 @@ try await purchases.restore()
 
 ## Requirements
 
-- iOS 26.0+ · Swift 5.9+ (uses the Observation framework)
+- iOS 17+ · Swift 5.9+ (uses the Observation framework)
 
 ## License
 
