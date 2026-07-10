@@ -1,5 +1,12 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.2
 import PackageDescription
+
+let concurrencyBaseline: [SwiftSetting] = [
+    .swiftLanguageMode(.v6),
+    .defaultIsolation(nil),
+    .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+    .enableUpcomingFeature("InferIsolatedConformances"),
+]
 
 let package = Package(
     name: "Purchases",
@@ -10,7 +17,7 @@ let package = Package(
         .library(name: "AnvyxPurchaseKit", targets: ["AnvyxPurchaseKit"]),
     ],
     targets: [
-        .target(name: "AnvyxPurchaseKit"),
-        .testTarget(name: "AnvyxPurchaseKitTests", dependencies: ["AnvyxPurchaseKit"]),
+        .target(name: "AnvyxPurchaseKit", swiftSettings: concurrencyBaseline),
+        .testTarget(name: "AnvyxPurchaseKitTests", dependencies: ["AnvyxPurchaseKit"], swiftSettings: concurrencyBaseline),
     ]
 )
