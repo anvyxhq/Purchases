@@ -53,7 +53,34 @@ public final class PurchaseManager {
 
     @discardableResult
     public func purchase(_ product: Product) async throws -> PurchaseOutcome {
-        let result = try await product.purchase()
+        try await handle(product.purchase())
+    }
+
+    /// Win-back offers available for a lapsed subscriber (iOS 18+).
+    @available(iOS 18.0, *)
+    public func winBackOffers(for product: Product) -> [Product.SubscriptionOffer] {
+        product.subscription?.winBackOffers ?? []
+    }
+
+    /// Purchase applying a win-back offer to re-engage a former subscriber (iOS 18+).
+    @available(iOS 18.0, *)
+    @discardableResult
+    public func purchase(_ product: Product,
+                         winBackOffer offer: Product.SubscriptionOffer) async throws -> PurchaseOutcome {
+        try await handle(product.purchase(options: [.winBackOffer(offer)]))
+    }
+
+    /// The user's current entitlement transactions for a product id (verified only).
+    public func currentEntitlements(for productID: String) async -> [Transaction] {
+        var result: [Transaction] = []
+        for await entitlement in Transaction.currentEntitlements {
+            guard let transaction = try? checkVerified(entitlement), transaction.productID == productID else { continue }
+            result.append(transaction)
+        }
+        return result
+    }
+
+    private func handle(_ result: Product.PurchaseResult) async throws -> PurchaseOutcome {
         switch result {
         case .success(let verification):
             let transaction = try checkVerified(verification)
